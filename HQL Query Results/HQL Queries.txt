@@ -1,0 +1,162 @@
+hive
+
+CREATE DATABASE Group_Project;
+USE Group_Project;
+
+set hive.cli.print.header=true;
+
+DROP TABLE IF EXISTS Energy;
+
+CREATE TABLE Energy (time TIMESTAMP,generation_biomass FLOAT,generation_fossil_brown_coal_lignite FLOAT,generation_fossil_coal_derived_gas FLOAT,generation_fossil_gas FLOAT,generation_fossil_hard_coal FLOAT,generation_fossil_oil FLOAT,generation_fossil_oil_shale FLOAT,generation_fossil_peat FLOAT,generation_geothermal FLOAT,generation_hydro_pumped_storage_aggregated FLOAT,generation_hydro_pumped_storage_consumption FLOAT,generation_hydro_run_of_river_and_poundage FLOAT,generation_hydro_water_reservoir FLOAT,generation_marine FLOAT,generation_nuclear FLOAT,generation_other FLOAT,generation_other_renewable FLOAT,generation_solar FLOAT,generation_waste FLOAT,generation_wind_offshore FLOAT,generation_wind_onshore FLOAT,forecast_solar_day_ahead FLOAT,forecast_wind_offshore_eday_ahead FLOAT,forecast_wind_onshore_day_ahead FLOAT,total_load_forecast FLOAT,total_load_actual FLOAT,price_day_ahead FLOAT,price_actual FLOAT
+)
+row format delimited fields terminated by ',' 
+stored AS textfile 
+tblproperties("skip.header.line.count"="1");
+
+LOAD DATA LOCAL INPATH '/home/cloudera/Desktop/Group Project/energy_dataset.csv' INTO TABLE Energy;
+
+SELECT * FROM Energy LIMIT 10;
+
+DROP TABLE IF EXISTS Weather;
+
+CREATE TABLE Weather (dt_iso TIMESTAMP,city_name STRING,temp FLOAT,temp_min FLOAT,temp_max FLOAT,pressure INT,humidity INT,wind_speed INT,wind_deg INT,rain_1h FLOAT,rain_3h FLOAT,snow_3h FLOAT,clouds_all FLOAT,weather_id INT,weather_main STRING,weather_description STRING,weather_icon STRING
+)
+row format delimited fields terminated by ',' 
+stored AS textfile 
+tblproperties("skip.header.line.count"="1");
+
+LOAD DATA LOCAL INPATH '/home/cloudera/Desktop/Group Project/weather_features.csv' INTO TABLE Weather;
+
+CREATE TEMPORARY TABLE joined AS
+SELECT e.*, w.*
+FROM Energy e JOIN
+(SELECT *
+FROM Weather
+) w
+ON (e.time = w.dt_iso);
+
+SELECT * FROM joined
+LIMIT 10;
+
+---- More easily readable output
+
+beeline
+
+!connect jdbc:hive2://
+cloudera
+cloudera
+use group_project;
+
+CREATE TEMPORARY TABLE joined AS
+SELECT e.*, w.*
+FROM Energy e JOIN
+(SELECT *
+FROM Weather
+) w
+ON (e.time = w.dt_iso);
+
+SELECT city_name, AVG(temp) AS temp, AVG(temp_min) AS temp_min, AVG(temp_max) AS temp_max
+FROM joined
+GROUP BY city_name;
+
+
+----------------------
+
+INSERT OVERWRITE LOCAL DIRECTORY '/home/lvermeer/temp' select books from table;
+
+SELECT x.city_name, x.year, AVG(x.temp) as temp
+FROM (
+SELECT city_name, YEAR(time) AS year, temp
+FROM joined
+) x
+GROUP BY x.city_name, x.year;
+
+INSERT OVERWRITE LOCAL DIRECTORY '/home/cloudera/Desktop/test'
+select city_name from joined LIMIT 10;
+
+INSERT OVERWRITE LOCAL DIRECTORY '/home/cloudera/Desktop/test3' 
+ROW FORMAT DELIMITED 
+FIELDS TERMINATED BY ',' 
+select city_name from joined LIMIT 10;
+
+INSERT OVERWRITE LOCAL DIRECTORY '/home/cloudera/Desktop/test4' 
+ROW FORMAT DELIMITED 
+FIELDS TERMINATED BY ',' 
+SELECT x.city_name AS city_name, x.year AS year, x.month AS month, x.day AS day,
+AVG(x.total_load_forecast) AS total_load_forecast, AVG(x.total_load_actual) AS total_load_actual,
+AVG(x.price_day_ahead) AS price_day_ahead, AVG(x.price_actual) AS price_actual,
+AVG(x.temp) AS temp, AVG(x.temp_min) AS temp_min, AVG(x.temp_max) AS temp_max, 
+AVG(x.pressure) AS pressure, AVG(x.humidity) AS humidity, AVG(x.wind_speed) AS wind_speed, 
+AVG(x.wind_deg) AS wind_deg, AVG(x.rain_1h) AS rain_1h, AVG(x.rain_3h) AS rain_3h, 
+AVG(x.snow_3h) AS snow_3h, AVG(x.generation_biomass) AS generation_biomass, 
+AVG(x.generation_fossil_brown_coal_lignite) AS generation_fossil_brown_coal_lignite, 
+AVG(x.generation_fossil_gas) AS generation_fossil_gas,
+AVG(x.generation_fossil_oil) AS generation_fossil_oil,
+AVG(x.generation_hydro_run_of_river_and_poundage) AS generation_hydro_run_of_river_and_poundage,
+AVG(x.generation_hydro_water_reservoir) AS generation_hydro_water_reservoir, 
+AVG(x.generation_nuclear) AS generation_nuclear,
+AVG(x.generation_waste) AS generation_waste,
+AVG(x.generation_wind_onshore) AS generation_wind_onshore,
+AVG(x.forecast_wind_onshore_day_ahead) AS forecast_wind_onshore_day_ahead
+FROM (
+SELECT city_name, YEAR(time) AS year, MONTH(time) AS month, DAY(time) AS day,
+total_load_forecast, total_load_actual, price_day_ahead, price_actual,
+temp, temp_min, temp_max, pressure, humidity, wind_speed, wind_deg, rain_1h,
+rain_3h, snow_3h,
+generation_biomass, generation_fossil_brown_coal_lignite, generation_fossil_gas,
+generation_fossil_oil,generation_hydro_run_of_river_and_poundage,
+generation_hydro_water_reservoir, generation_nuclear,generation_waste,
+generation_wind_onshore,forecast_wind_onshore_day_ahead
+FROM joined
+) x
+GROUP BY city_name, year, month, day;
+
+--------------------------------------------------------------------------------------------------
+
+INSERT OVERWRITE LOCAL DIRECTORY '/home/cloudera/Desktop/Queries/Avg_Elec_Year' 
+ROW FORMAT DELIMITED 
+FIELDS TERMINATED BY ',' 
+SELECT x.year AS year, x.month AS month, AVG(x.price_actual) AS avg_price_actual
+FROM (
+SELECT YEAR(time) AS year, MONTH(time) AS month, price_actual
+FROM joined
+) AS x
+GROUP BY year, month;
+
+INSERT OVERWRITE LOCAL DIRECTORY '/home/cloudera/Desktop/Queries/Hourly_Price' 
+ROW FORMAT DELIMITED 
+FIELDS TERMINATED BY ',' 
+SELECT x.hour AS hour, AVG(x.price_actual) AS avg_price_actual, AVG(x.price_day_ahead) AS avg_price_day_ahead
+FROM (
+SELECT HOUR(time) AS hour, price_actual, price_day_ahead
+FROM joined
+) AS x
+GROUP BY hour;
+
+INSERT OVERWRITE LOCAL DIRECTORY '/home/cloudera/Desktop/Queries/Monthly_Usages' 
+ROW FORMAT DELIMITED 
+FIELDS TERMINATED BY ',' 
+SELECT x.year AS year, x.month AS month, AVG(x.generation_nuclear), AVG(x.generation_wind_onshore), AVG(x.generation_hydro_water_reservoir), AVG(x.generation_fossil_gas), AVG(x.generation_fossil_hard_coal), AVG(x.generation_fossil_brown_coal_lignite), AVG(x.generation_solar), AVG(x.generation_hydro_run_of_river_and_poundage), AVG(x.generation_biomass), AVG(x.generation_waste), AVG(x.generation_other_renewable), AVG(x.generation_other)
+FROM (
+SELECT YEAR(time) AS year, MONTH(time) AS month, generation_nuclear, generation_wind_onshore, generation_hydro_water_reservoir, generation_fossil_gas, generation_fossil_hard_coal, generation_fossil_brown_coal_lignite, generation_solar, generation_hydro_run_of_river_and_poundage, generation_biomass, generation_waste, generation_other_renewable, generation_other
+FROM joined
+) AS x
+GROUP BY year, month;
+
+INSERT OVERWRITE LOCAL DIRECTORY '/home/cloudera/Desktop/Queries/City_Monthly_Prices' 
+ROW FORMAT DELIMITED 
+FIELDS TERMINATED BY ',' 
+SELECT x.city_name AS city_name, x.month AS month, AVG(x.price_actual) AS avg_price_actual
+FROM (
+SELECT city_name, MONTH(time) AS month, price_actual
+FROM joined
+) AS x
+GROUP BY city_name, month;
+
+
+
+
+
+
+
+
