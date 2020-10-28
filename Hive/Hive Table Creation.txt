@@ -1,0 +1,74 @@
+
+hive
+
+CREATE DATABASE Group_Project;
+USE Group_Project;
+
+set hive.cli.print.header=true;
+
+DROP TABLE IF EXISTS Energy;
+
+CREATE TABLE Energy (time TIMESTAMP,generation_biomass FLOAT,generation_fossil_brown_coal_lignite FLOAT,generation_fossil_coal_derived_gas FLOAT,generation_fossil_gas FLOAT,generation_fossil_hard_coal FLOAT,generation_fossil_oil FLOAT,generation_fossil_oil_shale FLOAT,generation_fossil_peat FLOAT,generation_geothermal FLOAT,generation_hydro_pumped_storage_aggregated FLOAT,generation_hydro_pumped_storage_consumption FLOAT,generation_hydro_run_of_river_and_poundage FLOAT,generation_hydro_water_reservoir FLOAT,generation_marine FLOAT,generation_nuclear FLOAT,generation_other FLOAT,generation_other_renewable FLOAT,generation_solar FLOAT,generation_waste FLOAT,generation_wind_offshore FLOAT,generation_wind_onshore FLOAT,forecast_solar_day_ahead FLOAT,forecast_wind_offshore_eday_ahead FLOAT,forecast_wind_onshore_day_ahead FLOAT,total_load_forecast FLOAT,total_load_actual FLOAT,price_day_ahead FLOAT,price_actual FLOAT
+)
+row format delimited fields terminated by ',' 
+stored AS textfile 
+tblproperties("skip.header.line.count"="1");
+
+LOAD DATA LOCAL INPATH '/home/cloudera/workspace/SharedFolderImageHost/Energy/energy_dataset.csv' INTO TABLE Energy;
+
+SELECT * FROM Energy LIMIT 10;
+
+DROP TABLE IF EXISTS Weather;
+
+CREATE TABLE Weather (dt_iso TIMESTAMP,city_name STRING,temp FLOAT,temp_min FLOAT,temp_max FLOAT,pressure INT,humidity INT,wind_speed INT,wind_deg INT,rain_1h FLOAT,rain_3h FLOAT,snow_3h FLOAT,clouds_all FLOAT,weather_id INT,weather_main STRING,weather_description STRING,weather_icon STRING
+)
+row format delimited fields terminated by ',' 
+stored AS textfile 
+tblproperties("skip.header.line.count"="1");
+
+LOAD DATA LOCAL INPATH '/home/cloudera/workspace/SharedFolderImageHost/Energy/weather_features.csv' INTO TABLE Weather;
+
+CREATE TEMPORARY TABLE joined AS
+SELECT e.*, w.*
+FROM Energy e JOIN
+(SELECT *
+FROM Weather
+) w
+ON (e.time = w.dt_iso);
+
+SELECT * FROM joined
+LIMIT 10;
+
+---- More easily readable output
+
+beeline
+
+!connect jdbc:hive2://
+cloudera
+cloudera
+use group_project;
+
+CREATE TEMPORARY TABLE joined AS
+SELECT e.*, w.*
+FROM Energy e JOIN
+(SELECT *
+FROM Weather
+) w
+ON (e.time = w.dt_iso);
+
+SELECT city_name, AVG(temp) AS temp, AVG(temp_min) AS temp_min, AVG(temp_max) AS temp_max
+FROM joined
+GROUP BY city_name;
+
+
+
+
+
+
+
+
+
+
+
+
+
