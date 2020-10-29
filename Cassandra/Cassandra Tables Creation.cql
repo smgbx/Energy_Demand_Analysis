@@ -1,0 +1,58 @@
+CREATE KEYSPACE Group_Project WITH REPLICATION = {'class':'SimpleStrategy', 'replication_factor':3};
+USE Group_Project;
+
+
+
+DROP TABLE IF EXISTS Energy_price_actual;
+
+CREATE TABLE Energy_by_price_actual(time TIMESTAMP,generation_biomass FLOAT,generation_fossil_brown_coal_lignite FLOAT,generation_fossil_coal_derived_gas FLOAT,generation_fossil_gas FLOAT,generation_fossil_hard_coal FLOAT,generation_fossil_oil FLOAT,generation_fossil_oil_shale FLOAT,generation_fossil_peat FLOAT,generation_geothermal FLOAT,generation_hydro_pumped_storage_aggregated FLOAT,generation_hydro_pumped_storage_consumption FLOAT,generation_hydro_run_of_river_and_poundage FLOAT,generation_hydro_water_reservoir FLOAT,generation_marine FLOAT,generation_nuclear FLOAT,generation_other FLOAT,generation_other_renewable FLOAT,generation_solar FLOAT,generation_waste FLOAT,generation_wind_offshore FLOAT,generation_wind_onshore FLOAT,forecast_solar_day_ahead FLOAT,forecast_wind_offshore_eday_ahead FLOAT,forecast_wind_onshore_day_ahead FLOAT,total_load_forecast FLOAT,total_load_actual FLOAT,price_day_ahead FLOAT,price_actual FLOAT, PRIMARY KEY((time), price_actual)) WITH CLUSTERING ORDER BY (price_actual DESC);
+
+COPY Energy_by_price_actual(time, generation_biomass, generation_fossil_brown_coal_lignite, generation_fossil_coal_derived_gas, generation_fossil_gas, generation_fossil_hard_coal, generation_fossil_oil, generation_fossil_oil_shale, generation_fossil_peat, generation_geothermal, generation_hydro_pumped_storage_aggregated, generation_hydro_pumped_storage_consumption, generation_hydro_run_of_river_and_poundage, generation_hydro_water_reservoir, generation_marine, generation_nuclear, generation_other, generation_other_renewable, generation_solar, generation_waste, generation_wind_offshore,generation_wind_onshore,forecast_solar_day_ahead,forecast_wind_offshore_eday_ahead,forecast_wind_onshore_day_ahead,total_load_forecast,total_load_actual,price_day_ahead,price_actual) FROM 'energy_dataset.csv' WITH DELIMITER=',' AND HEADER=TRUE;
+
+SELECT * FROM Energy_by_price_actual LIMIT 20;
+
+
+
+DROP TABLE IF EXISTS Energy_fossil_by_time;
+
+CREATE TABLE Energy_fossil_by_time(time TIMESTAMP,generation_biomass FLOAT,generation_fossil_brown_coal_lignite FLOAT,generation_fossil_coal_derived_gas FLOAT,generation_fossil_gas FLOAT,generation_fossil_hard_coal FLOAT,generation_fossil_oil FLOAT,generation_fossil_oil_shale FLOAT,generation_fossil_peat FLOAT,generation_geothermal FLOAT,generation_hydro_pumped_storage_aggregated FLOAT,generation_hydro_pumped_storage_consumption FLOAT,generation_hydro_run_of_river_and_poundage FLOAT,generation_hydro_water_reservoir FLOAT,generation_marine FLOAT,generation_nuclear FLOAT,generation_other FLOAT,generation_other_renewable FLOAT,generation_solar FLOAT,generation_waste FLOAT,generation_wind_offshore FLOAT,generation_wind_onshore FLOAT,forecast_solar_day_ahead FLOAT,forecast_wind_offshore_eday_ahead FLOAT,forecast_wind_onshore_day_ahead FLOAT,total_load_forecast FLOAT,total_load_actual FLOAT,price_day_ahead FLOAT,price_actual FLOAT, PRIMARY KEY((time), generation_fossil_brown_coal_lignite, generation_fossil_coal_derived_gas, generation_fossil_gas, generation_fossil_hard_coal, generation_fossil_oil)
+);
+
+COPY Energy_fossil_by_time(time, generation_biomass, generation_fossil_brown_coal_lignite, generation_fossil_coal_derived_gas, generation_fossil_gas, generation_fossil_hard_coal, generation_fossil_oil, generation_fossil_oil_shale, generation_fossil_peat, generation_geothermal, generation_hydro_pumped_storage_aggregated, generation_hydro_pumped_storage_consumption, generation_hydro_run_of_river_and_poundage, generation_hydro_water_reservoir, generation_marine, generation_nuclear, generation_other, generation_other_renewable, generation_solar, generation_waste, generation_wind_offshore,generation_wind_onshore,forecast_solar_day_ahead,forecast_wind_offshore_eday_ahead,forecast_wind_onshore_day_ahead,total_load_forecast,total_load_actual,price_day_ahead,price_actual) FROM 'energy_dataset.csv' WITH DELIMITER=',' AND HEADER=TRUE;
+
+SELECT * FROM Energy_fossil_by_time LIMIT 20;
+
+
+
+DROP TABLE IF EXISTS Energy_renewable_by_time;
+
+CREATE TABLE Energy_renewable_by_time(time TIMESTAMP,generation_biomass FLOAT,generation_fossil_brown_coal_lignite FLOAT,generation_fossil_coal_derived_gas FLOAT,generation_fossil_gas FLOAT,generation_fossil_hard_coal FLOAT,generation_fossil_oil FLOAT,generation_fossil_oil_shale FLOAT,generation_fossil_peat FLOAT,generation_geothermal FLOAT,generation_hydro_pumped_storage_aggregated FLOAT,generation_hydro_pumped_storage_consumption FLOAT,generation_hydro_run_of_river_and_poundage FLOAT,generation_hydro_water_reservoir FLOAT,generation_marine FLOAT,generation_nuclear FLOAT,generation_other FLOAT,generation_other_renewable FLOAT,generation_solar FLOAT,generation_waste FLOAT,generation_wind_offshore FLOAT,generation_wind_onshore FLOAT,forecast_solar_day_ahead FLOAT,forecast_wind_offshore_eday_ahead FLOAT,forecast_wind_onshore_day_ahead FLOAT,total_load_forecast FLOAT,total_load_actual FLOAT,price_day_ahead FLOAT,price_actual FLOAT, PRIMARY KEY((time), generation_hydro_pumped_storage_aggregated, generation_hydro_pumped_storage_consumption, generation_hydro_run_of_river_and_poundage, generation_hydro_water_reservoir, generation_marine, generation_nuclear, generation_other, generation_other_renewable, generation_solar, generation_waste, generation_wind_offshore,generation_wind_onshore)
+);
+
+COPY Energy_renewable_by_time(time, generation_biomass, generation_fossil_brown_coal_lignite, generation_fossil_coal_derived_gas, generation_fossil_gas, generation_fossil_hard_coal, generation_fossil_oil, generation_fossil_oil_shale, generation_fossil_peat, generation_geothermal, generation_hydro_pumped_storage_aggregated, generation_hydro_pumped_storage_consumption, generation_hydro_run_of_river_and_poundage, generation_hydro_water_reservoir, generation_marine, generation_nuclear, generation_other, generation_other_renewable, generation_solar, generation_waste, generation_wind_offshore,generation_wind_onshore,forecast_solar_day_ahead,forecast_wind_offshore_eday_ahead,forecast_wind_onshore_day_ahead,total_load_forecast,total_load_actual,price_day_ahead,price_actual) FROM 'energy_dataset.csv' WITH DELIMITER=',' AND HEADER=TRUE;
+
+SELECT * FROM Energy_renewable_by_time LIMIT 20;
+
+
+
+
+DROP TABLE IF EXISTS Weather_by_time;
+
+CREATE TABLE Weather_by_time(dt_iso TIMESTAMP,city_name TEXT,temp FLOAT,temp_min FLOAT,temp_max FLOAT,pressure INT,humidity INT,wind_speed INT,wind_deg INT,rain_1h FLOAT,rain_3h FLOAT,snow_3h FLOAT,clouds_all FLOAT,weather_id INT,weather_main 
+TEXT,weather_description TEXT,weather_icon TEXT, PRIMARY KEY((dt_iso), temp, weather_description)) WITH CLUSTERING ORDER BY (temp ASC);
+
+COPY Weather_by_time(dt_iso,city_name,temp,temp_min,temp_max,pressure,humidity,wind_speed,wind_deg,rain_1h,rain_3h,snow_3h,clouds_all,weather_id,weather_main,weather_description,weather_icon) FROM 'weather_features.csv' WITH DELIMITER=',' AND HEADER=TRUE;
+
+SELECT * FROM Weather_by_time  LIMIT 20;
+
+
+
+
+DROP TABLE IF EXISTS Temp_by_time_and_city;
+
+CREATE TABLE Temp_by_time_and_city(dt_iso TIMESTAMP,city_name TEXT,temp FLOAT,temp_min FLOAT,temp_max FLOAT,pressure INT,humidity INT,wind_speed INT,wind_deg INT,rain_1h FLOAT,rain_3h FLOAT,snow_3h FLOAT,clouds_all FLOAT,weather_id INT,weather_main 
+TEXT,weather_description TEXT,weather_icon TEXT, PRIMARY KEY((dt_iso), temp, city_name)) WITH CLUSTERING ORDER BY (temp ASC, city_name DESC);
+
+COPY Temp_by_time_and_city(dt_iso,city_name,temp,temp_min,temp_max,pressure,humidity,wind_speed,wind_deg,rain_1h,rain_3h,snow_3h,clouds_all,weather_id,weather_main,weather_description,weather_icon) FROM 'weather_features.csv' WITH DELIMITER=',' AND HEADER=TRUE;
+
+SELECT * FROM Temp_by_time_and_city  LIMIT 20;
