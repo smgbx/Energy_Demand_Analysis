@@ -1,8 +1,12 @@
+
+// Table creation and Energy inserstion
+----------------------------------------------
 hive
 
 CREATE DATABASE Group_Project;
 USE Group_Project;
 
+// Ensures that column names get printed when using Hive via terminal
 set hive.cli.print.header=true;
 
 DROP TABLE IF EXISTS Energy;
@@ -27,6 +31,7 @@ tblproperties("skip.header.line.count"="1");
 
 LOAD DATA LOCAL INPATH '/home/cloudera/Desktop/Group Project/weather_features.csv' INTO TABLE Weather;
 
+// This represents the Temporary joined table so we can query all the data without having to worry connecting it via join
 CREATE TEMPORARY TABLE joined AS
 SELECT e.*, w.*
 FROM Energy e JOIN
@@ -35,10 +40,7 @@ FROM Weather
 ) w
 ON (e.time = w.dt_iso);
 
-SELECT * FROM joined
-LIMIT 10;
-
----- More easily readable output
+------------------------------ Beeline, more readable output
 
 beeline
 
@@ -59,7 +61,8 @@ SELECT city_name, AVG(temp) AS temp, AVG(temp_min) AS temp_min, AVG(temp_max) AS
 FROM joined
 GROUP BY city_name;
 
-
+// Test aggregate queries to understand structure of data and types of commands I can run
+// Also learning how to export queries to specific folders
 ----------------------
 
 INSERT OVERWRITE LOCAL DIRECTORY '/home/lvermeer/temp' select books from table;
@@ -111,8 +114,10 @@ FROM joined
 ) x
 GROUP BY city_name, year, month, day;
 
+// Proper HQL queries with certain goals in mind
 --------------------------------------------------------------------------------------------------
 
+// Average Electricity Price by month / year
 INSERT OVERWRITE LOCAL DIRECTORY '/home/cloudera/Desktop/Queries/Avg_Elec_Year' 
 ROW FORMAT DELIMITED 
 FIELDS TERMINATED BY ',' 
@@ -123,6 +128,7 @@ FROM joined
 ) AS x
 GROUP BY year, month;
 
+// Average actual price and average price day ahead by hour of day
 INSERT OVERWRITE LOCAL DIRECTORY '/home/cloudera/Desktop/Queries/Hourly_Price' 
 ROW FORMAT DELIMITED 
 FIELDS TERMINATED BY ',' 
@@ -133,6 +139,7 @@ FROM joined
 ) AS x
 GROUP BY hour;
 
+// Summary statistics for key points of data by month / year
 INSERT OVERWRITE LOCAL DIRECTORY '/home/cloudera/Desktop/Queries/Monthly_Usages' 
 ROW FORMAT DELIMITED 
 FIELDS TERMINATED BY ',' 
@@ -143,6 +150,7 @@ FROM joined
 ) AS x
 GROUP BY year, month;
 
+// Summary Statistics grouped by city name and month
 INSERT OVERWRITE LOCAL DIRECTORY '/home/cloudera/Desktop/Queries/City_Monthly_Prices' 
 ROW FORMAT DELIMITED 
 FIELDS TERMINATED BY ',' 
