@@ -1,0 +1,61 @@
+20/10/30 04:27:44 INFO mapreduce.Job:  map 0% reduce 0%
+20/10/30 04:27:58 INFO mapreduce.Job:  map 100% reduce 0%
+20/10/30 04:28:17 INFO mapreduce.Job:  map 100% reduce 100%
+20/10/30 04:28:17 INFO mapreduce.Job: Job job_1604032870144_0008 completed successfully
+20/10/30 04:28:17 INFO mapreduce.Job: Counters: 49
+	File System Counters
+		FILE: Number of bytes read=28038648
+		FILE: Number of bytes written=56365263
+		FILE: Number of read operations=0
+		FILE: Number of large read operations=0
+		FILE: Number of write operations=0
+		HDFS: Number of bytes read=6062761
+		HDFS: Number of bytes written=2170
+		HDFS: Number of read operations=6
+		HDFS: Number of large read operations=0
+		HDFS: Number of write operations=2
+	Job Counters 
+		Launched map tasks=1
+		Launched reduce tasks=1
+		Data-local map tasks=1
+		Total time spent by all maps in occupied slots (ms)=10581
+		Total time spent by all reduces in occupied slots (ms)=15436
+		Total time spent by all map tasks (ms)=10581
+		Total time spent by all reduce tasks (ms)=15436
+		Total vcore-milliseconds taken by all map tasks=10581
+		Total vcore-milliseconds taken by all reduce tasks=15436
+		Total megabyte-milliseconds taken by all map tasks=10834944
+		Total megabyte-milliseconds taken by all reduce tasks=15806464
+	Map-Reduce Framework
+		Map input records=35065
+		Map output records=911263
+		Map output bytes=26216116
+		Map output materialized bytes=28038648
+		Input split bytes=136
+		Combine input records=0
+		Combine output records=0
+		Reduce input groups=26
+		Reduce shuffle bytes=28038648
+		Reduce input records=911263
+		Reduce output records=26
+		Spilled Records=1822526
+		Shuffled Maps =1
+		Failed Shuffles=0
+		Merged Map outputs=1
+		GC time elapsed (ms)=221
+		CPU time spent (ms)=18370
+		Physical memory (bytes) snapshot=714465280
+		Virtual memory (bytes) snapshot=3139694592
+		Total committed heap usage (bytes)=643825664
+	Shuffle Errors
+		BAD_ID=0
+		CONNECTION=0
+		IO_ERROR=0
+		WRONG_LENGTH=0
+		WRONG_MAP=0
+		WRONG_REDUCE=0
+	File Input Format Counters 
+		Bytes Read=6062625
+	File Output Format Counters 
+		Bytes Written=2170
+
