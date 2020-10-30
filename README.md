@@ -1,4 +1,4 @@
-## Energy-Demand-Analysis
+## Energy Demand Analysis in Spain
 Group 3 - Our team repo for our Energy Demand Analysis project for Big Data. <br>
 
 ## Team members: <br>
