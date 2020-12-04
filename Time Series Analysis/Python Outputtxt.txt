@@ -1,0 +1,87 @@
+C:\Users\Wes\PycharmProjects\pythonProject\venv\Scripts\python.exe C:/Users/Wes/PycharmProjects/pythonProject/main.py
+20/12/04 09:49:23 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+Using Spark's default log4j profile: org/apache/spark/log4j-defaults.properties
+Setting default log level to "WARN".
+To adjust logging level use sc.setLogLevel(newLevel). For SparkR, use setLogLevel(newLevel).
+20/12/04 09:49:25 WARN Utils: Service 'SparkUI' could not bind on port 4040. Attempting port 4041.
+20/12/04 09:49:32 WARN package: Truncated the string representation of a plan since it was too large. This behavior can be adjusted by setting 'spark.sql.debug.maxToStringFields'.
+DatetimeIndex(['2015-01-01 00:00:00', '2015-01-01 01:00:00',
+               '2015-01-01 02:00:00', '2015-01-01 03:00:00',
+               '2015-01-01 04:00:00', '2015-01-01 05:00:00',
+               '2015-01-01 06:00:00', '2015-01-01 07:00:00',
+               '2015-01-01 08:00:00', '2015-01-01 09:00:00',
+               ...
+               '2018-12-31 14:00:00', '2018-12-31 15:00:00',
+               '2018-12-31 16:00:00', '2018-12-31 17:00:00',
+               '2018-12-31 18:00:00', '2018-12-31 19:00:00',
+               '2018-12-31 20:00:00', '2018-12-31 21:00:00',
+               '2018-12-31 22:00:00', '2018-12-31 23:00:00'],
+              dtype='datetime64[ns]', name='time', length=35060, freq=None)
+20/12/04 09:49:40 WARN ProcfsMetricsGetter: Exception when trying to compute pagesize, as a result reporting of ProcessTree metrics is stopped
+C:\Users\Wes\PycharmProjects\pythonProject\venv\lib\site-packages\statsmodels\tsa\statespace\sarimax.py:868: UserWarning: Too few observations to estimate starting parameters for seasonal ARMA. All parameters except for variances will be set to zeros.
+  ' zeros.' % warning_description)
+RUNNING THE L-BFGS-B CODE
+
+           * * *
+
+Machine precision = 2.220D-16
+ N =            5     M =           10
+
+At X0         0 variables are exactly at the bounds
+
+At iterate    0    f=  3.79409D+00    |proj g|=  1.98999D-01
+ This problem is unconstrained.
+
+At iterate    5    f=  3.73622D+00    |proj g|=  1.41627D-02
+
+At iterate   10    f=  3.70488D+00    |proj g|=  3.26886D-02
+
+At iterate   15    f=  3.69484D+00    |proj g|=  1.51210D-02
+
+At iterate   20    f=  3.68925D+00    |proj g|=  2.75523D-03
+
+At iterate   25    f=  3.68836D+00    |proj g|=  6.26525D-04
+
+At iterate   30    f=  3.68827D+00    |proj g|=  2.24772D-04
+
+At iterate   35    f=  3.68826D+00    |proj g|=  7.87626D-05
+
+At iterate   40    f=  3.68826D+00    |proj g|=  2.74707D-04
+
+At iterate   45    f=  3.68822D+00    |proj g|=  2.40912D-03
+C:\Users\Wes\PycharmProjects\pythonProject\venv\lib\site-packages\statsmodels\base\model.py:568: ConvergenceWarning: Maximum Likelihood optimization failed to converge. Check mle_retvals
+  ConvergenceWarning)
+
+At iterate   50    f=  3.68796D+00    |proj g|=  8.79051D-03
+
+           * * *
+
+Tit   = total number of iterations
+Tnf   = total number of function evaluations
+Tnint = total number of segments explored during Cauchy searches
+Skip  = number of BFGS updates skipped
+Nact  = number of active bounds at final generalized Cauchy point
+Projg = norm of the final projected gradient
+F     = final function value
+
+           * * *
+
+   N    Tit     Tnf  Tnint  Skip  Nact     Projg        F
+    5     50     70      1     0     0   8.791D-03   3.688D+00
+  F =   3.6879587691450197     
+
+STOP: TOTAL NO. of ITERATIONS REACHED LIMIT                 
+==============================================================================
+                 coef    std err          z      P>|z|      [0.025      0.975]
+------------------------------------------------------------------------------
+ar.L1          0.8237      0.279      2.950      0.003       0.276       1.371
+ma.L1         -0.9999    289.117     -0.003      0.997    -567.660     565.660
+ar.S.L12      -0.1767      1.210     -0.146      0.884      -2.548       2.195
+ma.S.L12      -0.7395      2.839     -0.260      0.795      -6.304       4.825
+sigma2       967.3459   2.79e+05      0.003      0.997   -5.46e+05    5.48e+05
+==============================================================================
+SUCCESS: The process with PID 6988 (child process of PID 16192) has been terminated.
+SUCCESS: The process with PID 16192 (child process of PID 16360) has been terminated.
+SUCCESS: The process with PID 16360 (child process of PID 11936) has been terminated.
+
+Process finished with exit code 0
