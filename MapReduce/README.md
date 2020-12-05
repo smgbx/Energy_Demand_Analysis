@@ -26,6 +26,14 @@ I wish to calculate a few more descriptive statistics, such as the median, quart
 In addition, I also want experiment with joining the weather dataset to start doing some complex grouping. A mapper-side join currently is not be possible without some preprocessing since the datasets are different lengths and some rows may be missing from the energy dataset.
 
 
+## Final Increment notes
+
+[output_stddev/part-r-00000](output_stddev/part-r-00000)
+
+![screenshots/mr_out.png](screenshots/mr_stdev_out.png)
+
+The typical way to calculate standard deviation requires two passes over a dataset and it does not work with a continuous data stream. In Hadoop map-reduce this is infeasible and inefficient. In order to overcome these limitations, you need a single pass algorithm that can handle a continuous stream of data. This is where Welford's method comes in. Welford's method calculates an approximation of the mean, variance, and standard deviation over time. With the ability to dynamically calculate the standard deviation we can better analyze our dataset and determine the effectiveness and reliability of our predictions.
+
 ## References
 
 https://nestedsoftware.com/2018/03/27/calculating-standard-deviation-on-streaming-data-253l.23919.html
@@ -41,5 +49,7 @@ https://hadoop.apache.org/docs/r2.6.0/api/org/apache/hadoop/mapred/Reducer.html
 https://hadoop.apache.org/docs/r2.6.0/api/org/apache/hadoop/mapreduce/Job.html
 
 https://hadoop.apache.org/docs/r2.6.0/api/org/apache/hadoop/io/package-summary.html
+
+https://jonisalonen.com/2013/deriving-welfords-method-for-computing-variance/
 
 
