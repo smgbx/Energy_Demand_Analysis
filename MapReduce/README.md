@@ -28,9 +28,13 @@ In addition, I also want experiment with joining the weather dataset to start do
 
 ## Final Increment notes
 
+![screenshots/job_status_stddev.png](screenshots/job_status_stddev.png)
+
+Final output of the MapReduce job
+
 [output_stddev/part-r-00000](output_stddev/part-r-00000)
 
-![screenshots/mr_out.png](screenshots/mr_stdev_out.png)
+![screenshots/mr_stdev_out.png](screenshots/mr_stdev_out.png)
 
 The typical way to calculate standard deviation requires two passes over a dataset and it does not work with a continuous data stream. In Hadoop map-reduce this is infeasible and inefficient. In order to overcome these limitations, you need a single pass algorithm that can handle a continuous stream of data. This is where Welford's method comes in. Welford's method calculates an approximation of the mean, variance, and standard deviation over time. With the ability to dynamically calculate the standard deviation we can better analyze our dataset and determine the effectiveness and reliability of our predictions.
 
