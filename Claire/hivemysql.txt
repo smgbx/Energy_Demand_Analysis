@@ -1,0 +1,294 @@
+HIVE TABLE CREATION AND QUERIES
+WARNING: Hive CLI is deprecated and migration to Beeline is recommended.
+hive> use projectteam3;
+OK
+Time taken: 0.612 seconds
+hive> CREATE TABLE weather (dt_iso TIMESTAMP,city_name STRING,temp FLOAT,temp_min FLOAT,temp_max FLOAT,pressure INT,humidity INT,wind_speed INT,wind_deg INT,rain_1h FLOAT,rain_3h FLOAT,snow_3h FLOAT,clouds_all FLOAT,weather_id INT,weather_main STRING,weather_description STRING,weather_icon STRING
+    > 
+    > )
+    > 
+    > row format delimited fields terminated by '\001'
+    > COLLECTION ITEMS TERMINATED BY '\002'
+    > MAP KEYS TERMINATED BY '\003'
+    > LINES TERMINATED BY '\n'
+    > STORED AS TEXTFILE
+    > ;
+FAILED: Execution Error, return code 1 from org.apache.hadoop.hive.ql.exec.DDLTask. AlreadyExistsException(message:Table Weather already exists)
+hive> 
+hive> CREATE TABLE weather (dt_iso TIMESTAMP,city_name STRING,temp FLOAT,temp_min FLOAT,temp_max FLOAT,pressure INT,humidity INT,wind_speed INT,wind_deg INT,rain_1h FLOAT,rain_3h FLOAT,snow_3h FLOAT,clouds_all FLOAT,weather_id INT,weather_main STRING,weather_description STRING,weather_icon STRING
+    > 
+    > )
+    > 
+    > row format delimited fields terminated by '\001'
+    > COLLECTION ITEMS TERMINATED BY '\002'
+    > MAP KEYS TERMINATED BY '\003'
+    > LINES TERMINATED BY '\n'
+    > STORED AS TEXTFILE
+    > ;
+OK
+Time taken: 0.256 seconds
+Loading data into hive 
+hive> LOAD DATA LOCAL INPATH '/home/cloudera/Downloads/weather_features.csv' INTO TABLE Weather;
+Loading data to table projectteam3.weather
+Table projectteam3.weather stats: [numFiles=1, totalSize=18848511]
+OK
+Time taken: 1.317 seconds
+hive> CREATE TABLE weather (dt_iso TIMESTAMP,city_name STRING,temp FLOAT,temp_min FLOAT,temp_max FLOAT,pressure INT,humidity INT,wind_speed INT,wind_deg INT,rain_1h FLOAT,rain_3h FLOAT,snow_3h FLOAT,clouds_all FLOAT,weather_id INT,weather_main STRING,weather_description STRING,weather_icon STRING
+    > 
+    > )
+    > 
+    > row format delimited fields terminated by ',' 
+    > 
+    > stored AS textfile 
+    > 
+    > tblproperties("skip.header.line.count"="1");
+OK
+Time taken: 0.112 seconds
+hive> LOAD DATA LOCAL INPATH '/home/cloudera/Downloads/weather_features.csv' INTO TABLE weather;
+Loading data to table projectteam3.weather
+Table projectteam3.weather stats: [numFiles=1, totalSize=18848511]
+OK
+Time taken: 0.543 seconds
+hive> select * from weather limit 30;
+OK
+weather.dt_iso	weather.city_name	weather.temp	weather.temp_min	weather.temp_max	weather.pressure	weather.humidity	weather.wind_speed	weather.wind_deg	weather.rain_1h	weather.rain_3h	weather.snow_3h	weather.clouds_all	weather.weather_id	weather.weather_main	weather.weather_description	weather.weather_icon
+2015-01-01 00:00:00	Valencia	270.475	270.475	270.475	1001	77	1	62	0.0	0.0	0.0	0.0	800	clear	sky is clear	01n
+2015-01-01 01:00:00	Valencia	270.475	270.475	270.475	1001	77	1	62	0.0	0.0	0.0	0.0	800	clear	sky is clear	01n
+2015-01-01 02:00:00	Valencia	269.686	269.686	269.686	1002	78	0	23	0.0	0.0	0.0	0.0	800	clear	sky is clear	01n
+2015-01-01 03:00:00	Valencia	269.686	269.686	269.686	1002	78	0	23	0.0	0.0	0.0	0.0	800	clear	sky is clear	01n
+2015-01-01 04:00:00	Valencia	269.686	269.686	269.686	1002	78	0	23	0.0	0.0	0.0	0.0	800	clear	sky is clear	01n
+2015-01-01 05:00:00	Valencia	270.292	270.292	270.292	1004	71	2	321	0.0	0.0	0.0	0.0	800	clear	sky is clear	01n
+2015-01-01 06:00:00	Valencia	270.292	270.292	270.292	1004	71	2	321	0.0	0.0	0.0	0.0	800	clear	sky is clear	01n
+2015-01-01 07:00:00	Valencia	270.292	270.292	270.292	1004	71	2	321	0.0	0.0	0.0	0.0	800	clear	sky is clear	01n
+2015-01-01 08:00:00	Valencia	274.601	274.601	274.601	1005	71	1	307	0.0	0.0	0.0	0.0	800	clear	sky is clear	01d
+2015-01-01 09:00:00	Valencia	274.601	274.601	274.601	1005	71	1	307	0.0	0.0	0.0	0.0	800	clear	sky is clear	01d
+2015-01-01 10:00:00	Valencia	274.601	274.601	274.601	1005	71	1	307	0.0	0.0	0.0	0.0	800	clear	sky is clear	01d
+2015-01-01 11:00:00	Valencia	284.824	284.824	284.824	1006	55	1	255	0.0	0.0	0.0	0.0	800	clear	sky is clear	01d
+2015-01-01 12:00:00	Valencia	284.824	284.824	284.824	1006	55	1	255	0.0	0.0	0.0	0.0	800	clear	sky is clear	01d
+2015-01-01 13:00:00	Valencia	284.824	284.824	284.824	1006	55	1	255	0.0	0.0	0.0	0.0	800	clear	sky is clear	01d
+2015-01-01 14:00:00	Valencia	285.05066	285.05066	285.05066	1015	52	1	248	0.0	0.0	0.0	0.0	800	clear	sky is clear	01
+2015-01-01 15:00:00	Valencia	285.27734	285.27734	285.27734	1025	50	1	242	0.0	0.0	0.0	0.0	800	clear	sky is clear	01
+2015-01-01 16:00:00	Valencia	281.024	281.024	281.024	1021	67	1	230	0.0	0.0	0.0	0.0	800	clear	sky is clear	01
+2015-01-01 17:00:00	Valencia	282.744	282.744	282.744	1035	58	1	226	0.0	0.0	0.0	0.0	800	clear	sky is clear	01
+2015-01-01 18:00:00	Valencia	279.984	279.984	279.984	1035	68	1	216	0.0	0.0	0.0	0.0	800	clear	sky is clear	01
+2015-01-01 19:00:00	Valencia	277.8762	277.8762	277.8762	1017	69	1	235	0.0	0.0	0.0	0.0	800	clear	sky is clear	01
+2015-01-01 20:00:00	Valencia	275.0075	275.0075	275.0075	1021	81	1	220	0.0	0.0	0.0	0.0	800	clear	sky is clear	01
+2015-01-01 21:00:00	Valencia	272.791	272.791	272.791	1006	84	1	235	0.0	0.0	0.0	0.0	800	clear	sky is clear	01n
+2015-01-01 22:00:00	Valencia	272.791	272.791	272.791	1006	84	1	235	0.0	0.0	0.0	0.0	800	clear	sky is clear	01n
+2015-01-01 23:00:00	Valencia	271.229	271.229	271.229	1006	82	1	265	0.0	0.0	0.0	0.0	800	clear	sky is clear	01n
+2015-01-02 00:00:00	Valencia	271.229	271.229	271.229	1006	82	1	265	0.0	0.0	0.0	0.0	800	clear	sky is clear	01n
+2015-01-02 01:00:00	Valencia	271.229	271.229	271.229	1006	82	1	265	0.0	0.0	0.0	0.0	800	clear	sky is clear	01n
+2015-01-02 02:00:00	Valencia	270.664	270.664	270.664	1005	82	1	275	0.0	0.0	0.0	0.0	800	clear	sky is clear	01n
+2015-01-02 03:00:00	Valencia	270.664	270.664	270.664	1005	82	1	275	0.0	0.0	0.0	0.0	800	clear	sky is clear	01n
+2015-01-02 04:00:00	Valencia	270.664	270.664	270.664	1005	82	1	275	0.0	0.0	0.0	0.0	800	clear	sky is clear	01n
+2015-01-02 05:00:00	Valencia	270.277	270.277	270.277	1006	78	1	284	0.0	0.0	0.0	0.0	800	clear	sky is clear	01n
+Time taken: 0.128 seconds, Fetched: 30 row(s)
+hive> 
+
+hive> drop table energy;
+OK
+Time taken: 0.146 seconds
+hive> CREATE TABLE energy (time TIMESTAMP,generation_biomass FLOAT,generation_fossil_brown_coal_lignite FLOAT,generation_fossil_coal_derived_gas FLOAT,generation_fossil_gas FLOAT,generation_fossil_hard_coal FLOAT,generation_fossil_oil FLOAT,generation_fossil_oil_shale FLOAT,generation_fossil_peat FLOAT,generation_geothermal FLOAT,generation_hydro_pumped_storage_aggregated FLOAT,generation_hydro_pumped_storage_consumption FLOAT,generation_hydro_run_of_river_and_poundage FLOAT,generation_hydro_water_reservoir FLOAT,generation_marine FLOAT,generation_nuclear FLOAT,generation_other FLOAT,generation_other_renewable FLOAT,generation_solar FLOAT,generation_waste FLOAT,generation_wind_offshore FLOAT,generation_wind_onshore FLOAT,forecast_solar_day_ahead FLOAT,forecast_wind_offshore_eday_ahead FLOAT,forecast_wind_onshore_day_ahead FLOAT,total_load_forecast FLOAT,total_load_actual FLOAT,price_day_ahead FLOAT,price_actual FLOAT
+    > 
+    > )
+    > 
+    > row format delimited fields terminated by ',' 
+    > 
+    > stored AS textfile 
+    > 
+    > tblproperties("skip.header.line.count"="1");
+OK
+Time taken: 0.131 seconds
+hive> LOAD DATA LOCAL INPATH '/home/cloudera/Downloads/energy_dataset.csv' INTO TABLE energy;
+Loading data to table projectteam3.energy
+Table projectteam3.energy stats: [numFiles=1, totalSize=6062625]
+OK
+Time taken: 0.434 seconds
+hive> select * from energy limit 30;
+OK
+energy.time	energy.generation_biomass	energy.generation_fossil_brown_coal_lignite	energy.generation_fossil_coal_derived_gas	energy.generation_fossil_gas	energy.generation_fossil_hard_coal	energy.generation_fossil_oil	energy.generation_fossil_oil_shale	energy.generation_fossil_peat	energy.generation_geothermal	energy.generation_hydro_pumped_storage_aggregated	energy.generation_hydro_pumped_storage_consumption	energy.generation_hydro_run_of_river_and_poundage	energy.generation_hydro_water_reservoir	energy.generation_marine	energy.generation_nuclear	energy.generation_other	energy.generation_other_renewable	energy.generation_solar	energy.generation_waste	energy.generation_wind_offshore	energy.generation_wind_onshore	energy.forecast_solar_day_ahead	energy.forecast_wind_offshore_eday_ahead	energy.forecast_wind_onshore_day_ahead	energy.total_load_forecast	energy.total_load_actual	energy.price_day_ahead	energy.price_actual
+2015-01-01 00:00:00	447.0	329.0	0.0	4844.0	4821.0	162.0	0.0	0.0	0.0	NULL	863.0	1051.0	1899.0	0.0	7096.0	43.0	73.0	49.0	196.0	0.0	6378.0	17.0	NULL	6436.0	26118.0	25385.0	50.165.41
+2015-01-01 01:00:00	449.0	328.0	0.0	5196.0	4755.0	158.0	0.0	0.0	0.0	NULL	920.0	1009.0	1658.0	0.0	7096.0	43.0	71.0	50.0	195.0	0.0	5890.0	16.0	NULL	5856.0	24934.0	24382.0	48.164.92
+2015-01-01 02:00:00	448.0	323.0	0.0	4857.0	4581.0	157.0	0.0	0.0	0.0	NULL	1164.0	973.0	1371.0	0.0	7099.0	43.0	73.0	50.0	196.0	0.0	5461.0	8.0	NULL	5454.0	23515.0	22734.0	47.3364.48
+2015-01-01 03:00:00	438.0	254.0	0.0	4314.0	4131.0	160.0	0.0	0.0	0.0	NULL	1503.0	949.0	779.0	0.0	7098.0	43.0	75.0	50.0	191.0	0.0	5238.0	2.0	NULL	5151.0	22642.0	21286.0	42.2759.32
+2015-01-01 04:00:00	428.0	187.0	0.0	4130.0	3840.0	156.0	0.0	0.0	0.0	NULL	1826.0	953.0	720.0	0.0	7097.0	43.0	74.0	42.0	189.0	0.0	4935.0	9.0	NULL	4861.0	21785.0	20264.0	38.4156.04
+2015-01-01 05:00:00	410.0	178.0	0.0	4038.0	3590.0	156.0	0.0	0.0	0.0	NULL	2109.0	952.0	743.0	0.0	7098.0	43.0	74.0	34.0	188.0	0.0	4618.0	4.0	NULL	4617.0	21441.0	19905.0	35.7253.63
+2015-01-01 06:00:00	401.0	172.0	0.0	4040.0	3368.0	158.0	0.0	0.0	0.0	NULL	2108.0	961.0	848.0	0.0	7098.0	43.0	74.0	34.0	186.0	0.0	4397.0	3.0	NULL	4276.0	21285.0	20010.0	35.1351.73
+2015-01-01 07:00:00	408.0	172.0	0.0	4030.0	3208.0	160.0	0.0	0.0	0.0	NULL	2031.0	983.0	1012.0	0.0	7099.0	43.0	72.0	35.0	189.0	0.0	3992.0	12.0	NULL	3994.0	21545.0	20377.0	36.2251.43
+2015-01-01 08:00:00	413.0	177.0	0.0	4052.0	3335.0	161.0	0.0	0.0	0.0	NULL	2119.0	1001.0	1015.0	0.0	7098.0	43.0	73.0	54.0	198.0	0.0	3629.0	39.0	NULL	3602.0	21443.0	20094.0	32.448.98
+2015-01-01 09:00:00	419.0	177.0	0.0	4137.0	3437.0	163.0	0.0	0.0	0.0	NULL	2170.0	1041.0	1357.0	0.0	7097.0	43.0	74.0	743.0	198.0	0.0	3073.0	784.0	NULL	3212.0	21560.0	20637.0	36.654.2
+2015-01-01 10:00:00	422.0	173.0	0.0	4059.0	3516.0	167.0	0.0	0.0	0.0	NULL	2020.0	1041.0	1817.0	0.0	7096.0	43.0	72.0	2019.0	204.0	0.0	2683.0	1996.0	NULL	2617.0	22824.0	22250.0	43.158.94
+2015-01-01 11:00:00	421.0	226.0	0.0	3931.0	3845.0	166.0	0.0	0.0	0.0	NULL	1183.0	1069.0	1516.0	0.0	7097.0	42.0	73.0	3197.0	206.0	0.0	2771.0	2990.0	NULL	2450.0	23720.0	23547.0	45.1459.86
+2015-01-01 12:00:00	428.0	303.0	0.0	3784.0	4220.0	167.0	0.0	0.0	0.0	NULL	972.0	1052.0	1204.0	0.0	7097.0	41.0	75.0	3885.0	209.0	0.0	2906.0	3842.0	NULL	2819.0	24180.0	24133.0	45.1460.12
+2015-01-01 13:00:00	425.0	288.0	0.0	3754.0	4404.0	167.0	0.0	0.0	0.0	NULL	922.0	1041.0	1286.0	0.0	7099.0	40.0	74.0	4007.0	210.0	0.0	2923.0	3812.0	NULL	2830.0	24797.0	24713.0	47.3562.05
+2015-01-01 14:00:00	423.0	260.0	0.0	3779.0	4256.0	166.0	0.0	0.0	0.0	NULL	941.0	1028.0	1027.0	0.0	7097.0	40.0	76.0	3973.0	210.0	0.0	2945.0	3699.0	NULL	2851.0	25222.0	24672.0	47.3562.06
+2015-01-01 15:00:00	421.0	183.0	0.0	3708.0	4038.0	160.0	0.0	0.0	0.0	NULL	1069.0	1023.0	1151.0	0.0	7096.0	40.0	76.0	3818.0	210.0	0.0	2709.0	3369.0	NULL	2822.0	24173.0	23528.0	43.6159.76
+2015-01-01 16:00:00	422.0	256.0	0.0	3813.0	4191.0	163.0	0.0	0.0	0.0	NULL	970.0	1032.0	1156.0	0.0	7095.0	41.0	75.0	3088.0	211.0	0.0	2552.0	2615.0	NULL	2562.0	23659.0	23118.0	44.9161.18
+2015-01-01 17:00:00	426.0	322.0	0.0	3967.0	4707.0	165.0	0.0	0.0	0.0	NULL	798.0	1036.0	1626.0	0.0	7095.0	41.0	75.0	1467.0	208.0	0.0	2699.0	1387.0	NULL	2578.0	23982.0	23606.0	48.164.74
+2015-01-01 18:00:00	427.0	282.0	0.0	4756.0	4756.0	164.0	0.0	0.0	0.0	NULL	1.0	1094.0	3203.0	0.0	7096.0	42.0	74.0	404.0	209.0	0.0	2764.0	399.0	NULL	2824.0	26981.0	26447.0	58.0274.26
+2015-01-01 19:00:00	442.0	303.0	0.0	4410.0	4918.0	147.0	0.0	0.0	0.0	NULL	1.0	1153.0	5333.0	0.0	7096.0	42.0	76.0	139.0	208.0	0.0	2913.0	100.0	NULL	2801.0	28515.0	28020.0	61.0174.24
+2015-01-01 20:00:00	445.0	318.0	0.0	4324.0	5025.0	154.0	0.0	0.0	0.0	NULL	0.0	1214.0	6183.0	0.0	7096.0	43.0	74.0	100.0	210.0	0.0	3118.0	44.0	NULL	2999.0	30482.0	29014.0	62.6975.64
+2015-01-01 21:00:00	443.0	325.0	0.0	4684.0	5043.0	154.0	0.0	0.0	0.0	NULL	0.0	1220.0	6231.0	0.0	7096.0	43.0	74.0	75.0	212.0	0.0	3373.0	26.0	NULL	3185.0	30739.0	29571.0	60.4173.92
+2015-01-01 22:00:00	440.0	322.0	0.0	4870.0	4990.0	154.0	0.0	0.0	0.0	NULL	0.0	1178.0	5359.0	0.0	7098.0	43.0	74.0	74.0	210.0	0.0	3508.0	13.0	NULL	3446.0	29756.0	29031.0	58.1570.53
+2015-01-01 23:00:00	438.0	320.0	0.0	4685.0	4942.0	160.0	0.0	0.0	0.0	NULL	0.0	1095.0	3511.0	0.0	7098.0	43.0	74.0	56.0	209.0	0.0	3527.0	14.0	NULL	3482.0	27589.0	26798.0	53.664.13
+2015-01-02 00:00:00	368.0	0.0	0.0	3189.0	1291.0	193.0	0.0	0.0	0.0	NULL	1290.0	1268.0	3871.0	0.0	7106.0	45.0	62.0	54.0	169.0	0.0	13232.0	5.0	NULL	13329.0	27309.0	27070.0	10.064.02
+2015-01-02 01:00:00	368.0	0.0	0.0	2902.0	1190.0	192.0	0.0	0.0	0.0	NULL	1996.0	1263.0	2996.0	0.0	7106.0	45.0	61.0	54.0	167.0	0.0	12760.0	35.0	NULL	12718.0	25397.0	24935.0	7.0	58.46
+2015-01-02 02:00:00	358.0	0.0	0.0	2772.0	1023.0	189.0	0.0	0.0	0.0	NULL	2698.0	1246.0	2581.0	0.0	7107.0	44.0	60.0	54.0	167.0	0.0	12174.0	43.0	NULL	12375.0	23640.0	23214.0	5.0	54.7
+2015-01-02 03:00:00	353.0	0.0	0.0	2936.0	1016.0	188.0	0.0	0.0	0.0	NULL	3269.0	1248.0	2933.0	0.0	7107.0	44.0	59.0	53.0	181.0	0.0	11358.0	32.0	NULL	11524.0	22638.0	22540.0	4.0	54.91
+2015-01-02 04:00:00	354.0	0.0	0.0	2893.0	1103.0	189.0	0.0	0.0	0.0	NULL	3267.0	1233.0	2646.0	0.0	7106.0	44.0	61.0	53.0	181.0	0.0	11199.0	31.0	NULL	11310.0	22238.0	22096.0	4.0	53.07
+2015-01-02 05:00:00	354.0	0.0	0.0	2889.0	1120.0	190.0	0.0	0.0	0.0	NULL	3258.0	1225.0	2529.0	0.0	7105.0	44.0	59.0	63.0	171.0	0.0	11152.0	26.0	NULL	11111.0	22299.0	22066.0	4.8	54.23
+Time taken: 0.103 seconds, Fetched: 30 row(s)
+hive> 
+
+MYSQL CODES
+mysql> use projectteam3;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> CREATE TABLE energy (time TIMESTAMP,generation_biomass FLOAT,generation_fossil_brown_coal_lignite FLOAT,generation_fossil_coal_derived_gas FLOAT,generation_fossil_gas FLOAT,generation_fossil_hard_coal FLOAT,generation_fossil_oil FLOAT,generation_fossil_oil_shale FLOAT,generation_fossil_peat FLOAT,generation_geothermal FLOAT,generation_hydro_pumped_storage_aggregated FLOAT,generation_hydro_pumped_storage_consumption FLOAT,generation_hydro_run_of_river_and_poundage FLOAT,generation_hydro_water_reservoir FLOAT,generation_marine FLOAT,generation_nuclear FLOAT,generation_other FLOAT,generation_other_renewable FLOAT,generation_solar FLOAT,generation_waste FLOAT,generation_wind_offshore FLOAT,generation_wind_onshore FLOAT,forecast_solar_day_ahead FLOAT,forecast_wind_offshore_eday_ahead FLOAT,forecast_wind_onshore_day_ahead FLOAT,total_load_forecast FLOAT,total_load_actual FLOAT,price_day_ahead FLOAT,price_actual FLOAT  );
+Query OK, 0 rows affected (0.04 sec)
+
+
+mysql> describe table energy;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'table energy' at line 1
+mysql> describe energy;
++---------------------------------------------+-----------+------+-----+-------------------+-----------------------------+
+| Field                                       | Type      | Null | Key | Default           | Extra                       |
++---------------------------------------------+-----------+------+-----+-------------------+-----------------------------+
+| time                                        | timestamp | NO   |     | CURRENT_TIMESTAMP | on update CURRENT_TIMESTAMP |
+| generation_biomass                          | float     | YES  |     | NULL              |                             |
+| generation_fossil_brown_coal_lignite        | float     | YES  |     | NULL              |                             |
+| generation_fossil_coal_derived_gas          | float     | YES  |     | NULL              |                             |
+| generation_fossil_gas                       | float     | YES  |     | NULL              |                             |
+| generation_fossil_hard_coal                 | float     | YES  |     | NULL              |                             |
+| generation_fossil_oil                       | float     | YES  |     | NULL              |                             |
+| generation_fossil_oil_shale                 | float     | YES  |     | NULL              |                             |
+| generation_fossil_peat                      | float     | YES  |     | NULL              |                             |
+| generation_geothermal                       | float     | YES  |     | NULL              |                             |
+| generation_hydro_pumped_storage_aggregated  | float     | YES  |     | NULL              |                             |
+| generation_hydro_pumped_storage_consumption | float     | YES  |     | NULL              |                             |
+| generation_hydro_run_of_river_and_poundage  | float     | YES  |     | NULL              |                             |
+| generation_hydro_water_reservoir            | float     | YES  |     | NULL              |                             |
+| generation_marine                           | float     | YES  |     | NULL              |                             |
+| generation_nuclear                          | float     | YES  |     | NULL              |                             |
+| generation_other                            | float     | YES  |     | NULL              |                             |
+| generation_other_renewable                  | float     | YES  |     | NULL              |                             |
+| generation_solar                            | float     | YES  |     | NULL              |                             |
+| generation_waste                            | float     | YES  |     | NULL              |                             |
+| generation_wind_offshore                    | float     | YES  |     | NULL              |                             |
+| generation_wind_onshore                     | float     | YES  |     | NULL              |                             |
+| forecast_solar_day_ahead                    | float     | YES  |     | NULL              |                             |
+| forecast_wind_offshore_eday_ahead           | float     | YES  |     | NULL              |                             |
+| forecast_wind_onshore_day_ahead             | float     | YES  |     | NULL              |                             |
+| total_load_forecast                         | float     | YES  |     | NULL              |                             |
+| total_load_actual                           | float     | YES  |     | NULL              |                             |
+| price_day_ahead                             | float     | YES  |     | NULL              |                             |
+| price_actual                                | float     | YES  |     | NULL              |                             |
++---------------------------------------------+-----------+------+-----+-------------------+-----------------------------+
+29 rows in set (0.01 sec)
+
+CREATE TABLE energy (time TIMESTAMP,generation_biomass FLOAT,generation_fossil_brown_coal_lignite FLOAT,generation_fossil_coal_derived_gas FLOAT,generation_fossil_gas FLOAT,generation_fossil_hard_coal FLOAT,generation_fossil_oil FLOAT,generation_fossil_oil_shale FLOAT,generation_fossil_peat FLOAT,generation_geothermal FLOAT,generation_hydro_pumped_storage_aggregated FLOAT,generation_hydro_pumped_storage_consumption FLOAT,generation_hydro_run_of_river_and_poundage FLOAT,generation_hydro_water_reservoir FLOAT,generation_marine FLOAT,generation_nuclear FLOAT,generation_other FLOAT,generation_other_renewable FLOAT,generation_solar FLOAT,generation_waste FLOAT,generation_wind_offshore FLOAT,generation_wind_onshore FLOAT,forecast_solar_day_ahead FLOAT,forecast_wind_offshore_eday_ahead FLOAT,forecast_wind_onshore_day_ahead FLOAT,total_load_forecast FLOAT,total_load_actual FLOAT,price_day_ahead FLOAT,price_actual FLOAT
+
+)
+CREATE TABLE weather (dt_iso TIMESTAMP,city_name TEXT,temp FLOAT,temp_min FLOAT,temp_max FLOAT,pressure INT,humidity INT,wind_speed INT,wind_deg INT,rain_1h FLOAT,rain_3h FLOAT,snow_3h FLOAT,clouds_all FLOAT,weather_id INT,weather_main VARCHAR(20),weather_description TEXT,weather_icon VARCHAR(5));
+ERROR 1050 (42S01): Table 'weather' already exists
+mysql> describe weather;
++---------------------+-------------+------+-----+-------------------+-----------------------------+
+| Field               | Type        | Null | Key | Default           | Extra                       |
++---------------------+-------------+------+-----+-------------------+-----------------------------+
+| dt_iso              | timestamp   | NO   |     | CURRENT_TIMESTAMP | on update CURRENT_TIMESTAMP |
+| city_name           | text        | YES  |     | NULL              |                             |
+| temp                | float       | YES  |     | NULL              |                             |
+| temp_min            | float       | YES  |     | NULL              |                             |
+| temp_max            | float       | YES  |     | NULL              |                             |
+| pressure            | int(11)     | YES  |     | NULL              |                             |
+| humidity            | int(11)     | YES  |     | NULL              |                             |
+| wind_speed          | int(11)     | YES  |     | NULL              |                             |
+| wind_deg            | int(11)     | YES  |     | NULL              |                             |
+| rain_1h             | float       | YES  |     | NULL              |                             |
+| rain_3h             | float       | YES  |     | NULL              |                             |
+| snow_3h             | float       | YES  |     | NULL              |                             |
+| clouds_all          | float       | YES  |     | NULL              |                             |
+| weather_id          | int(11)     | YES  |     | NULL              |                             |
+| weather_main        | varchar(20) | YES  |     | NULL              |                             |
+| weather_description | text        | YES  |     | NULL              |                             |
+| weather_icon        | varchar(5)  | YES  |     | NULL              |                             |
++---------------------+-------------+------+-----+-------------------+-----------------------------+
+17 rows in set (0.00 sec)
+USING SQOOP EXPORT TO COPY DATA FROM HIVE TO MYSQL
+[cloudera@quickstart ~]$ sqoop export --connect jdbc:mysql://localhost/projectteam3 --username root --password cloudera --table weather --export-dir /user/hive/warehouse/projectteam3.db/weather -m 1
+[cloudera@quickstart ~]$ sqoop export --connect jdbc:mysql://localhost/projectteam3 --username root --password cloudera --table weather --export-dir /user/hive/warehouse/projectteam3.db/weather -m 1 --input-fields-terminated-by ','
+this sqoop export fails at the lever of the mapping, i tried all the commands listed above and still got the error below
+
+ERROR MESSAGE
+[cloudera@quickstart ~]$ sqoop export --connect jdbc:mysql://localhost/projectteam3 --username root --password cloudera --table weather --export-dir /user/hive/warehouse/projectteam3.db/weather -m 1 --input-fields-terminated-by ','
+Warning: /usr/lib/sqoop/../accumulo does not exist! Accumulo imports will fail.
+Please set $ACCUMULO_HOME to the root of your Accumulo installation.
+20/12/06 08:31:04 INFO sqoop.Sqoop: Running Sqoop version: 1.4.6-cdh5.13.0
+20/12/06 08:31:04 WARN tool.BaseSqoopTool: Setting your password on the command-line is insecure. Consider using -P instead.
+20/12/06 08:31:04 INFO manager.MySQLManager: Preparing to use a MySQL streaming resultset.
+20/12/06 08:31:04 INFO tool.CodeGenTool: Beginning code generation
+20/12/06 08:31:06 INFO manager.SqlManager: Executing SQL statement: SELECT t.* FROM `weather` AS t LIMIT 1
+20/12/06 08:31:06 INFO manager.SqlManager: Executing SQL statement: SELECT t.* FROM `weather` AS t LIMIT 1
+20/12/06 08:31:06 INFO orm.CompilationManager: HADOOP_MAPRED_HOME is /usr/lib/hadoop-mapreduce
+Note: /tmp/sqoop-cloudera/compile/4202551825093e69befcca15db4aa4b5/weather.java uses or overrides a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+20/12/06 08:31:11 INFO orm.CompilationManager: Writing jar file: /tmp/sqoop-cloudera/compile/4202551825093e69befcca15db4aa4b5/weather.jar
+20/12/06 08:31:11 INFO mapreduce.ExportJobBase: Beginning export of weather
+20/12/06 08:31:11 INFO Configuration.deprecation: mapred.job.tracker is deprecated. Instead, use mapreduce.jobtracker.address
+20/12/06 08:31:12 INFO Configuration.deprecation: mapred.jar is deprecated. Instead, use mapreduce.job.jar
+20/12/06 08:31:14 INFO Configuration.deprecation: mapred.reduce.tasks.speculative.execution is deprecated. Instead, use mapreduce.reduce.speculative
+20/12/06 08:31:14 INFO Configuration.deprecation: mapred.map.tasks.speculative.execution is deprecated. Instead, use mapreduce.map.speculative
+20/12/06 08:31:14 INFO Configuration.deprecation: mapred.map.tasks is deprecated. Instead, use mapreduce.job.maps
+20/12/06 08:31:15 INFO client.RMProxy: Connecting to ResourceManager at /0.0.0.0:8032
+20/12/06 08:31:16 WARN hdfs.DFSClient: Caught exception 
+java.lang.InterruptedException
+	at java.lang.Object.wait(Native Method)
+	at java.lang.Thread.join(Thread.java:1281)
+	at java.lang.Thread.join(Thread.java:1355)
+	at org.apache.hadoop.hdfs.DFSOutputStream$DataStreamer.closeResponder(DFSOutputStream.java:967)
+	at org.apache.hadoop.hdfs.DFSOutputStream$DataStreamer.endBlock(DFSOutputStream.java:705)
+	at org.apache.hadoop.hdfs.DFSOutputStream$DataStreamer.run(DFSOutputStream.java:894)
+20/12/06 08:31:16 WARN hdfs.DFSClient: DataStreamer Exception
+java.nio.channels.ClosedByInterruptException
+	at java.nio.channels.spi.AbstractInterruptibleChannel.end(AbstractInterruptibleChannel.java:202)
+	at sun.nio.ch.SocketChannelImpl.write(SocketChannelImpl.java:496)
+	at org.apache.hadoop.net.SocketOutputStream$Writer.performIO(SocketOutputStream.java:63)
+	at org.apache.hadoop.net.SocketIOWithTimeout.doIO(SocketIOWithTimeout.java:142)
+	at org.apache.hadoop.net.SocketOutputStream.write(SocketOutputStream.java:159)
+	at org.apache.hadoop.net.SocketOutputStream.write(SocketOutputStream.java:117)
+	at java.io.BufferedOutputStream.flushBuffer(BufferedOutputStream.java:82)
+	at java.io.BufferedOutputStream.flush(BufferedOutputStream.java:140)
+	at java.io.DataOutputStream.flush(DataOutputStream.java:123)
+
+20/12/06 08:31:49 INFO mapreduce.Job:  map 100% reduce 0%
+20/12/06 08:31:49 INFO mapreduce.Job: Job job_1607196615712_0057 failed with state FAILED due to: Task failed task_1607196615712_0057_m_000000
+Job failed as tasks failed. failedMaps:1 failedReduces:0
+
+20/12/06 08:31:49 INFO mapreduce.Job: Counters: 8
+	Job Counters 
+		Failed map tasks=1
+		Launched map tasks=1
+		Data-local map tasks=1
+		Total time spent by all maps in occupied slots (ms)=10089
+		Total time spent by all reduces in occupied slots (ms)=0
+		Total time spent by all map tasks (ms)=10089
+		Total vcore-milliseconds taken by all map tasks=10089
+		Total megabyte-milliseconds taken by all map tasks=10331136
+20/12/06 08:31:49 WARN mapreduce.Counters: Group FileSystemCounters is deprecated. Use org.apache.hadoop.mapreduce.FileSystemCounter instead
+20/12/06 08:31:49 INFO mapreduce.ExportJobBase: Transferred 0 bytes in 34.4187 seconds (0 bytes/sec)
+20/12/06 08:31:49 WARN mapreduce.Counters: Group org.apache.hadoop.mapred.Task$Counter is deprecated. Use org.apache.hadoop.mapreduce.TaskCounter instead
+20/12/06 08:31:49 INFO mapreduce.ExportJobBase: Exported 0 records.
+20/12/06 08:31:49 ERROR tool.ExportTool: Error during export: 
+Export job failed!
+	at org.apache.sqoop.mapreduce.ExportJobBase.runExport(ExportJobBase.java:439)
+	at org.apache.sqoop.manager.SqlManager.exportTable(SqlManager.java:931)
+	at org.apache.sqoop.tool.ExportTool.exportTable(ExportTool.java:80)
+	at org.apache.sqoop.tool.ExportTool.run(ExportTool.java:99)
+	at org.apache.sqoop.Sqoop.run(Sqoop.java:147)
+	at org.apache.hadoop.util.ToolRunner.run(ToolRunner.java:70)
+	at org.apache.sqoop.Sqoop.runSqoop(Sqoop.java:183)
+	at org.apache.sqoop.Sqoop.runTool(Sqoop.java:234)
+	at org.apache.sqoop.Sqoop.runTool(Sqoop.java:243)
+	at org.apache.sqoop.Sqoop.main(Sqoop.java:252)
