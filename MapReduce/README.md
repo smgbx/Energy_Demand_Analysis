@@ -38,6 +38,37 @@ Final output of the MapReduce job
 
 The typical way to calculate standard deviation requires two passes over a dataset and it does not work with a continuous data stream. In Hadoop map-reduce this is infeasible and inefficient. In order to overcome these limitations, you need a single pass algorithm that can handle a continuous stream of data. This is where Welford's method comes in. Welford's method calculates an approximation of the mean, variance, and standard deviation over time. With the ability to dynamically calculate the standard deviation we can better analyze our dataset and determine the effectiveness and reliability of our predictions.
 
+## Final Increment Summary
+
+During this iteration I explored our dataset using Hadoop MapReduce. In the first iteration I figured out how to parse and calculate some basic statistics for each column, but in this iteration, I wanted to explore a bit deeper. With large amounts of data algorithm efficiency becomes a primary goal. Data gathered in an analysis has an expiration date of usefulness. If it takes you a week to calculate the next week trend your analysis is useless. While our dataset is small enough that this isn't the case I wanted to explore how to do some more advanced statistics without it taking a long time to compute. 
+
+I found during my research that many of the algorithms require at least 2 passes over the dataset to compute the wanted statistic. I did not like that, so I went searching for algorithms that could approximate the value and I found the Welford's method. This is what I implemented in this iteration. It can compute the variance and in-turn the standard deviation piece by piece as the data comes in from the mapper. This method would also work great for spark streaming! 
+
+To start I placed our dataset into hdfs.
+
+```shell 
+hdfs dfs -mkdir Energy_Demand_Analysis
+hdfs dfs -cp Energy_Demand_Analysis/dataset/* Energy_Demand_Analysis/
+```
+
+Then I wrote a Mapper that essentially takes the csv file and splits it by column and passes it off to the reducer.
+
+![screenshots/mapper.png](screenshots/mapper.png)
+
+The Reducer is where the meat and potatoes exist. The reducers take a feed of values and begins to calculate true values mean, min, max and approximates the value of mean and variance.
+
+![screenshots/reducer.png](screenshots/reducer.png)
+
+From there we export to a JAR so Hadoop can run our fantastic program.
+
+![screenshots/export.png](screenshots/export.png)
+
+Finally, we can run our jar on the local machine (or cluster). You can see the output to that above.
+
+```
+hadoop jar EnergyAnalysisStatsistics.jar Energy_Demand_Analysis/ energy_out
+```
+
 ## References
 
 https://nestedsoftware.com/2018/03/27/calculating-standard-deviation-on-streaming-data-253l.23919.html
