@@ -9,10 +9,10 @@ Claire Ndofor, Wes McNall, Scott Howard, Shelby Mohar <br>
 
 ## Video Reports: <br>
 
-![Wes](https://www.youtube.com/watch?v=Sj6ttsovQ4w)<br>
-![Claire](https://mailmissouri-my.sharepoint.com/personal/cbnk6w_umsystem_edu/Documents/Attachments/Clairevideo.mp4) <br>
-![Scott](https://youtu.be/biIeri28OGc) <br>
-![Shelby](https://youtu.be/4WZvKEsCCvo) <br>
+[Wes](https://www.youtube.com/watch?v=Sj6ttsovQ4w)<br>
+[Claire](https://mailmissouri-my.sharepoint.com/personal/cbnk6w_umsystem_edu/Documents/Attachments/Clairevideo.mp4) <br>
+[Scott](https://youtu.be/biIeri28OGc) <br>
+[Shelby](https://youtu.be/4WZvKEsCCvo) <br>
 
 Dataset includes two files: energy_dataset.csv and weather_features.csv. <br>
 Please see [Final Report](https://github.com/smgbx/Energy_Demand_Analysis/blob/master/Final_Report.pdf) for more information.
