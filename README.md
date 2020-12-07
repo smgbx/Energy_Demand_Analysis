@@ -12,9 +12,9 @@ Claire Ndofor, Wes McNall, Scott Howard, Shelby Mohar <br>
 ![Wes](https://www.youtube.com/watch?v=Sj6ttsovQ4w)<br>
 Claire: <br>
 Scott: <br>
-![Shelby](https://youtu.be/4WZvKEsCCvo): <br>
+![Shelby](https://youtu.be/4WZvKEsCCvo) <br>
 
 Dataset includes two files: energy_dataset.csv and weather_features.csv. <br>
-Please see [Final Report](https://github.com/smgbx/Energy_Demand_Analysis/blob/master/Final_Report.doc) for more information.
+Please see [Final Report](https://github.com/smgbx/Energy_Demand_Analysis/blob/master/Final_Report.pdf) for more information.
 
 
