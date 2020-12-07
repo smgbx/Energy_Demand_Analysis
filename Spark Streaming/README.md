@@ -27,3 +27,6 @@
 ## Shelby Increment Notes
 
 Using Spark and SparkStreaming, my goal was to find a way to incorporate new data into our existing dataset. To do this, I found the same API service that was used to populate the data of our original dataset. Unfortunately, due to a paywall, I was only able to use the service that provided information about the current weather rather than historical weather, which would have made querying the data interesting. However, I was still able to make it work using this API. There are two primary ways I did this: using Spark, and using a mock-version of SparkStreaming. 
+
+
+![](https://github.com/smgbx/Energy_Demand_Analysis/blob/master/Spark%20Streaming/weather_5_cities_screenshot.png)
