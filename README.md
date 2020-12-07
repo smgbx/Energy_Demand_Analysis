@@ -9,8 +9,8 @@ Claire Ndofor, Wes McNall, Scott Howard, Shelby Mohar <br>
 
 ## Video Reports: <br>
 
-Wes: <br>
-Clair: <br>
+![Wes](https://www.youtube.com/watch?v=Sj6ttsovQ4w)<br>
+Claire: <br>
 Scott: <br>
 Shelby: <br>
 
