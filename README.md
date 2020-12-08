@@ -10,7 +10,7 @@ Claire Ndofor, Wes McNall, Scott Howard, Shelby Mohar <br>
 ## Video Reports: <br>
 
 [Wes](https://www.youtube.com/watch?v=Sj6ttsovQ4w)<br>
-[Claire](https://mailmissouri-my.sharepoint.com/personal/cbnk6w_umsystem_edu/Documents/Attachments/Clairevideo.mp4) <br>
+[Claire](https://youtu.be/6gqH1F5smAQ) <br>
 [Scott](https://youtu.be/biIeri28OGc) <br>
 [Shelby](https://youtu.be/4WZvKEsCCvo) <br>
 
